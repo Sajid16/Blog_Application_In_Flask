@@ -59,7 +59,7 @@ def delete(post_id):
     delete_post = BlogPost.query.get_or_404(post_id)
     db.session.delete(delete_post)
     db.session.commit()
-    return redirect(url_for('posts'))
+    return redirect(url_for('index'))
 
 
 @app.route('/posts/update/<int:post_id>', methods=['GET', 'POST'])
@@ -73,7 +73,7 @@ def update(post_id):
         edit_post.content = request.form['content']
         db.session.commit()
         # print('debug 66')
-        return redirect(url_for('posts'))
+        return redirect(url_for('index'))
         # return render_template('posts.html', posts=all_posts)
     else:
         # print('debug 69')
