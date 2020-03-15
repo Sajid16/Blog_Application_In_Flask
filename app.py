@@ -12,6 +12,7 @@ class BlogPost(db.Model):
     title = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(20), nullable=False, default='N/A')
+    # reference = db.Column(db.String(20), nullable=False, default='N/A')
     date_posted = db.Column(db.Integer, nullable=False, default=datetime.now)
 
     def __repr__(self):
@@ -53,17 +54,21 @@ def delete(post_id):
     return redirect(url_for('posts'))
 
 
-@app.route('/posts/update/<int:post_id>')
+@app.route('/posts/update/<int:post_id>', methods=['GET', 'POST'])
 def update(post_id):
+    all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
     edit_post = BlogPost.query.get_or_404(post_id)
-
+    # print('debug 60')
     if request.method == 'POST':
         edit_post.title = request.form['title']
         edit_post.author = request.form['author']
         edit_post.content = request.form['content']
         db.session.commit()
+        # print('debug 66')
         return redirect(url_for('posts'))
+        # return render_template('posts.html', posts=all_posts)
     else:
+        print('debug 69')
         return render_template('edit.html', post=edit_post)
 
 
