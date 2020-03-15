@@ -6,39 +6,12 @@ Blog App|Posts
 
 {% block main_content %}
 
-<div class="container">
-    <h1>New Post</h1>
-
-    <hr>
-    <h2>Create New Blog Post:</h2>
-    <form action='/posts/' method='POST'>
-        <label for="title">Title:</label>
-        <input class="form-control" type="text" name='title' id='title' placeholder="Enter Title"
-               aria-label="Enter Title">
-        <br>
-        <label for="author">Author:</label>
-        <input class="form-control" type="text" name='author' id='author' placeholder="Enter Author"
-               aria-label="Enter Author">
-        <br>
-        <label for="content">Post:</label>
-        <textarea class="form-control" name='content' id="content" placeholder="Enter Content"
-                  aria-label="Enter Content" rows="3"></textarea>
-        <br>
-        <input style="display:inline" class="btn btn-success float-left" type='submit' value='Post Your Blog Content'>
-        <!--        <a style="display:inline" class="btn btn-success float-left" href="/posts">Post Your Blog Content</a>-->
-        <br>
-        <br>
-    </form>
-    <hr>
-
-</div>
-
 <br>
 
 <div class="container">
     <div>
         <h1 style="display:inline">All Posts</h1>
-<!--        <a style="display:inline" class="btn btn-success float-right" href="/new_posts/">+ New Post</a>-->
+        <!--        <a style="display:inline" class="btn btn-success float-right" href="/new_posts/">+ New Post</a>-->
     </div>
     <hr>
 
@@ -51,12 +24,12 @@ Blog App|Posts
     {% endif %}
     <br>
     <br>
-    <p style="white-space:pre-wrap">{{ post.content }}</p>
+    <p style="white-space:pre-wrap;">{{ post.content[:300] }}...<span><a href="{{ url_for('details', post_id=post.id) }}">Read more</a></span></p>
     <br>
     <a class="btn btn-danger" href='/posts/delete/{{post.id}}'>Delete</a>
     <a class="btn btn-primary" href="{{ url_for('update', post_id=post.id) }}">Edit</a>
-<!--    <a class="btn btn-danger" href="{{ url_for('delete', post_id=post.id) }}">Delete</a>-->
-<!--    <a class="btn btn-primary" href='/posts/edit/{{post.id}}'>Edit</a>-->
+    <!--    <a class="btn btn-danger" href="{{ url_for('delete', post_id=post.id) }}">Delete</a>-->
+    <!--    <a class="btn btn-primary" href='/posts/edit/{{post.id}}'>Edit</a>-->
     <br>
     <hr>
     <br>

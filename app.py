@@ -21,7 +21,16 @@ class BlogPost(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    all_posts = BlogPost.query.order_by(BlogPost.date_posted.desc()).all()
+    return render_template('posts.html', posts=all_posts)
+    # return render_template('index.html')
+
+
+@app.route('/posts/details/<int:post_id>', methods=['GET'])
+def details(post_id):
+    detail_post = BlogPost.query.get_or_404(post_id)
+    # print('debug 69')
+    return render_template('detail.html', post=detail_post)
 
 
 @app.route('/posts/', methods=['GET', 'POST'])
@@ -40,10 +49,9 @@ def posts():
         # print('on line 36')
         db.session.commit()
         # print('on line 38')
-        return redirect(url_for('posts'))
+        return redirect(url_for('index'))
     else:
-        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
-        return render_template('posts.html', posts=all_posts)
+        return render_template('new_post.html')
 
 
 @app.route('/posts/delete/<int:post_id>')
@@ -68,7 +76,7 @@ def update(post_id):
         return redirect(url_for('posts'))
         # return render_template('posts.html', posts=all_posts)
     else:
-        print('debug 69')
+        # print('debug 69')
         return render_template('edit.html', post=edit_post)
 
 

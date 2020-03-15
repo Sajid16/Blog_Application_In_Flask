@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Blog App|Details
+{% endblock %}
+
+{% block main_content %}
+
+<br>
+
+<div class="container">
+    <div class="jumbotron">
+        {% if post %}
+        <h1 class="display-4">{{post.title}}</h1>
+        <p class="lead"><small> Written by <b>{{ post.author }}</b> on <b>{{ post.date_posted }}</b></small></p>
+        <hr class="my-4">
+        <p style="white-space:pre-wrap;">{{post.content}}</p>
+        <a class="btn btn-warning btn-lg" href="{{url_for('index')}}" role="button"><b>Back to Blog</b></a>
+        {% endif %}
+    </div>
+    <!--    <div>-->
+    <!--        <h1 style="display:inline">All Posts</h1>-->
+    <!--        &lt;!&ndash;        <a style="display:inline" class="btn btn-success float-right" href="/new_posts/">+ New Post</a>&ndash;&gt;-->
+    <!--    </div>-->
+    <!--    <hr>-->
+
+    <!--    {% for post in posts %}-->
+    <!--    <h2>{{ post.title }}</h2>-->
+    <!--    {% if post.author %}-->
+    <!--    <small> Written by <b>{{ post.author }}</b> on <b>{{ post.date_posted }}</b></small>-->
+    <!--    {% else %}-->
+    <!--    <small> Written by Unknown on {{ post.date_posted }}</small>-->
+    <!--    {% endif %}-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <p style="white-space:pre-wrap;">{{ post.content[:700] }}...<span><a href="{{ url_for('update', post_id=post.id) }}">Read more</a></span></p>-->
+    <!--    <br>-->
+    <!--    <a class="btn btn-danger" href='/posts/delete/{{post.id}}'>Delete</a>-->
+    <!--    <a class="btn btn-primary" href="{{ url_for('update', post_id=post.id) }}">Edit</a>-->
+    <!--    <a class="btn btn-danger" href="{{ url_for('delete', post_id=post.id) }}">Delete</a>-->
+    <!--    <a class="btn btn-primary" href='/posts/edit/{{post.id}}'>Edit</a>-->
+    <br>
+    <hr>
+    <br>
+    {% endfor%}
+
+</div>
+
+{% endblock %}
