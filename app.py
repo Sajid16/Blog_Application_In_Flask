@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from datetime import datetime
 
 app = Flask(__name__)
@@ -12,7 +13,7 @@ class BlogPost(db.Model):
     title = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(20), nullable=False, default='N/A')
-    # reference = db.Column(db.String(20), nullable=False, default='N/A')
+    reference = db.Column(db.String(20), nullable=False, default='N/A')
     date_posted = db.Column(db.Integer, nullable=False, default=datetime.now)
 
     def __repr__(self):
@@ -38,12 +39,13 @@ def posts():
     if request.method == 'POST':
         title = request.form['title']
         author = request.form['author']
+        reference = request.form['reference']
         content = request.form['content']
         # print(title)
         # print(author)
         # print(content)
 
-        new_post = BlogPost(title=title, content=content, author=author)
+        new_post = BlogPost(title=title, content=content, author=author, reference=reference)
         # print('on line 34')
         db.session.add(new_post)
         # print('on line 36')
@@ -78,6 +80,34 @@ def update(post_id):
     else:
         # print('debug 69')
         return render_template('edit.html', post=edit_post)
+
+
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
+        print('username: ' + username)
+        print('password: ' + password)
+        return render_template('login.html')
+    else:
+        return render_template('login.html')
+
+
+@app.route('/signup/', methods=['GET', 'POST'])
+def signup():
+    if request.method == "POST":
+        usermail = request.form['usermail']
+        username = request.form['username']
+        password = request.form['password']
+        repassword = request.form['repassword']
+        print('username: ' + username)
+        print('usermail: ' + usermail)
+        print('password: ' + password)
+        print('repassword: ' + repassword)
+        return render_template('signup.html')
+    else:
+        return render_template('signup.html')
 
 
 if __name__ == "__main__":

@@ -19,13 +19,15 @@ Blog App|Posts
     <h2>{{ post.title }}</h2>
     {% if post.author %}
     <small> Written by <b>{{ post.author }}</b> on <b>{{ post.date_posted }}</b></small>
+    <br>
+    <small> Reference taken from <b>{{ post.reference }}</b></small>
     {% else %}
     <small> Written by Unknown on {{ post.date_posted }}</small>
     {% endif %}
     <br>
     <br>
     <p style="white-space:pre-wrap;">{{ post.content[:300] }}...<span><a href="{{ url_for('details', post_id=post.id) }}">Read more</a></span></p>
-    <br>
+<!--    <br>-->
     <a class="btn btn-danger" href='/posts/delete/{{post.id}}'>Delete</a>
     <a class="btn btn-primary" href="{{ url_for('update', post_id=post.id) }}">Edit</a>
     <!--    <a class="btn btn-danger" href="{{ url_for('delete', post_id=post.id) }}">Delete</a>-->
